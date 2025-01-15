@@ -1,6 +1,6 @@
 export interface Task {
-    id: string;
+    id: number;
     execute: () => Promise<void>;
-    dependencies: string[];
+    dependencies: number[];
   }
   

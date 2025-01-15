@@ -6,96 +6,96 @@ const scheduler = new Scheduler();
 let failCondition = false;
 
 scheduler.addTask({
-  id: "taskA",
+  id: 1,
   execute: async () => { 
-    console.log("Executing taskA"); 
+    console.log("Executing task 1"); 
   },
-  dependencies: ["taskB", "taskC"]
+  dependencies: [2, 3]
 });
 
 scheduler.addTask({
-  id: "taskB",
+  id: 2,
   execute: async () => { 
-    console.log("Executing taskB"); 
+    console.log("Executing task 2"); 
     const randomCondition = 1;
     if (randomCondition > 0.7) {
-      throw new Error("TaskB failed due to random condition");
+      throw new Error("Task 2 failed due to random condition");
     }
   },
-  dependencies: ["taskC"]
+  dependencies: [3]
 });
 
 scheduler.addTask({
-  id: "taskC",
+  id: 3,
   execute: async () => { 
-    console.log("Executing taskC"); 
-    // Simula la finalización exitosa
+    console.log("Executing task 3"); 
+    // Simulates successful completion
   },
   dependencies: []
 });
 
 scheduler.addTask({
-  id: "taskD",
+  id: 4,
   execute: async () => { 
-    console.log("Executing taskD"); 
+    console.log("Executing task 4"); 
   },
-  dependencies: ["taskA"]
+  dependencies: [1]
 });
 
 scheduler.addTask({
-  id: "taskE",
+  id: 5,
   execute: async () => { 
-    console.log("Executing taskE"); 
-    // Fallo condicionado
+    console.log("Executing task 5"); 
+    // Conditional failure
     if (failCondition) {
-      throw new Error("TaskE failed due to conditional logic");
+      throw new Error("Task 5 failed due to conditional logic");
     }
   },
-  dependencies: ["taskD"]
+  dependencies: [4]
 });
 
 scheduler.addTask({
-  id: "taskF",
+  id: 6,
   execute: async () => { 
-    console.log("Executing taskF"); 
-    // Activar condición de fallo
+    console.log("Executing task 6"); 
+    // Activate failure condition
     failCondition = true;
   },
-  dependencies: ["taskE"]
+  dependencies: [5]
 });
 
 scheduler.addTask({
-  id: "taskG",
+  id: 7,
   execute: async () => { 
-    console.log("Executing taskG"); 
-    // No tiene dependencias
+    console.log("Executing task7"); 
+    // No dependencies
   },
   dependencies: []
 });
 
 scheduler.addTask({
-  id: "taskH",
+  id: 8,
   execute: async () => { 
-    console.log("Executing taskH"); 
+    console.log("Executing task 8"); 
   },
-  dependencies: ["taskA", "taskG"]
+  dependencies: [1, 7]
 });
 
-// Simulación de una dependencia circular
+// Simulating a circular dependency
 scheduler.addTask({
-  id: "taskI",
+  id: 9,
   execute: async () => { 
-    console.log("Executing taskI"); 
+    console.log("Executing task 9"); 
   },
-  dependencies: ["taskJ"]
+  dependencies: [10]
 });
 
 scheduler.addTask({
-  id: "taskJ",
+  id: 10,
   execute: async () => { 
-    console.log("Executing taskJ"); 
+    console.log("Executing task 10"); 
   },
-  dependencies: ["taskI"]
+  dependencies: [9]
 });
 
 (async () => {

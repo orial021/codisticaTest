@@ -9,19 +9,19 @@ describe('Scheduler', () => {
     const mockTaskC = jest.fn(async () => {});
 
     scheduler.addTask({
-      id: "taskA",
+      id: 1,
       execute: mockTaskA,
-      dependencies: ["taskB", "taskC"]
+      dependencies: [2, 3]
     });
 
     scheduler.addTask({
-      id: "taskB",
+      id: 2,
       execute: mockTaskB,
-      dependencies: ["taskC"]
+      dependencies: [3]
     });
 
     scheduler.addTask({
-      id: "taskC",
+      id: 3,
       execute: mockTaskC,
       dependencies: []
     });
@@ -48,15 +48,15 @@ describe('Scheduler', () => {
     const mockTaskJ = jest.fn(async () => {});
 
     scheduler.addTask({
-      id: "taskI",
+      id: 4,
       execute: mockTaskI,
-      dependencies: ["taskJ"]
+      dependencies: [5]
     });
 
     scheduler.addTask({
-      id: "taskJ",
+      id: 5,
       execute: mockTaskJ,
-      dependencies: ["taskI"]
+      dependencies: [4]
     });
 
     await scheduler.runAllTasks();
@@ -67,38 +67,37 @@ describe('Scheduler', () => {
 
   it('should handle failed tasks and prevent dependent tasks from running', async () => {
     const scheduler = new Scheduler();
-  
+
     const mockTaskA = jest.fn(async () => {});
     const mockTaskB = jest.fn(async () => { 
       throw new Error("TaskB failed");
     });
     const mockTaskC = jest.fn(async () => {});
-  
+
     scheduler.addTask({
-      id: "taskA",
+      id: 6,
       execute: mockTaskA,
-      dependencies: ["taskB"]
+      dependencies: [7]
     });
-  
+
     scheduler.addTask({
-      id: "taskB",
+      id: 7,
       execute: mockTaskB,
-      dependencies: ["taskC"]
+      dependencies: [8]
     });
-  
+
     scheduler.addTask({
-      id: "taskC",
+      id: 8,
       execute: mockTaskC,
       dependencies: []
     });
-  
+
     await scheduler.runAllTasks();
-  
+
     expect(mockTaskC).toHaveBeenCalled();
     expect(mockTaskB).toHaveBeenCalled();
     expect(mockTaskA).not.toHaveBeenCalled();  // TaskA should not be called due to TaskB failure
   });
-  
 
   it('should run independent tasks immediately', async () => {
     const scheduler = new Scheduler();
@@ -107,13 +106,13 @@ describe('Scheduler', () => {
     const mockTaskB = jest.fn(async () => {});
 
     scheduler.addTask({
-      id: "taskA",
+      id: 9,
       execute: mockTaskA,
       dependencies: []
     });
 
     scheduler.addTask({
-      id: "taskB",
+      id: 10,
       execute: mockTaskB,
       dependencies: []
     });
