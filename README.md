@@ -28,8 +28,11 @@ A lightweight dynamic scheduling system in Node.js and TypeScript, allowing user
 2. Run the code:
     npx ts-node src/index.ts
 
-2. Run test:
-    npm test
+3. Run test:
+    npm run test
+
+4. Run Server:
+    npm run start
 
 ## License
 
