@@ -16,8 +16,8 @@ A lightweight dynamic scheduling system in Node.js and TypeScript, allowing user
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone <your-repository>
-   cd <your-repository>
+   git clone https://github.com/orial021/codisticaTest
+   cd codisticaTest
 
 2. Install dependencies:
     npm install
